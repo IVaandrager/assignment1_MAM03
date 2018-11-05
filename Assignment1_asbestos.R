@@ -70,15 +70,13 @@ p2 <- mean(highrisk$mesothelioma.or.lungcancer)
 p1 <- mean(lowrisk$mesothelioma.or.lungcancer)
 singlePAR <- p*(p2-p1); singlePAR
 
+#calculate variance through sqrt(SE) which we find through delta method
+varPAR <- ((p2-p1)^2)*var(pbootstrap)+((p)^2)*(var(p1bootstrap)+var(p2bootstrap))
+SE <- sqrt(varPAR)
+CI.PAR <- 1.96*(SE/sqrt(length(meso.small$high.expsoure))); CI.PAR
 
+#some numbers for results
 total.highrisk <- sum(mesothelioma.file$high.expsoure == "1"); total.highrisk
 total.lowrisk <-  sum(mesothelioma.file$high.expsoure == "0"); total.lowrisk
 total.highrisk+total.lowrisk == length(mesothelioma.file$high.expsoure)
 total.cancer <- sum(mesothelioma.file$mesothelioma.or.lungcancer == "1"); total.cancer
-# 
-# highrisk.cancer <- sum(mesothelioma.file$high.expsoure == "1" & mesothelioma.file$mesothelioma.or.lungcancer == '1')
-# highrisk.nocancer <- sum(mesothelioma.file$high.expsoure == "1" & mesothelioma.file$mesothelioma.or.lungcancer == '0')
-# lowrisk.cancer <- sum(mesothelioma.file$high.expsoure == "0" & mesothelioma.file$mesothelioma.or.lungcancer == '1')
-# lowrisk.nocancer <- sum(mesothelioma.file$high.expsoure == "0" & mesothelioma.file$mesothelioma.or.lungcancer == '0')
-
-
